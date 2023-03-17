@@ -1,3 +1,28 @@
+/* ---- particles.js container ---- */
+#particle {
+    background-color: #000000;
+    position: fixed;
+    /* position: absolute; */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* heartbeat */
+.heartbeat {
+    animation: heartbeat 1s infinite alternate;
+}
+
+@keyframes heartbeat {
+    to {
+        -webkit-transform: scale(1.1);
+        transform: scale(0.9);
+        text-transform: scale(0.9);
+    }
+}
+
 /* --------GENERAL STYLES -------- */
 * {
     margin: 0;
@@ -8,9 +33,10 @@
 :root {
     --bg-color: #000;
     --font-color: #fff;
-    --secondary-bg-color: #ff4900;
+    --secondary-bg-color: #37a7cf;
     --font: "Poppins";
 }
+
 body {
     background-color: var(--bg-color);
     font-family: var(--font);
@@ -39,10 +65,12 @@ body::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: rgb(165, 162, 162);
 }
+
 body::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:active {
     background-color: var(--secondary-bg-color);
 }
+
 body::-webkit-scrollbar-track {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -76,6 +104,7 @@ body::-webkit-scrollbar-track {
     border-color: unset;
     border-width: 0;
 }
+
 .header__info ul li:hover {
     background-color: var(--secondary-bg-color);
 }
@@ -87,6 +116,7 @@ body::-webkit-scrollbar-track {
     .navbar {
         padding: 0 2rem;
     }
+
     .navbar .checkbox {
         position: absolute;
         display: block;
@@ -119,13 +149,16 @@ body::-webkit-scrollbar-track {
         border-radius: 10px;
         background: #ffffff;
     }
+
     .navbar .hamburger__lines .line1 {
         transform-origin: 0% 0%;
         transition: transform 0.4s ease-in-out;
     }
+
     .navbar .hamburger__lines .line2 {
         transition: transform 0.2s ease-in-out;
     }
+
     .navbar .hamburger__lines .line3 {
         transform-origin: 0% 100%;
         transition: transform 0.4s ease-in-out;
@@ -157,28 +190,30 @@ body::-webkit-scrollbar-track {
         transition: transform 0.5s ease-in-out;
     }
 
-    .navbar input[type="checkbox"]:checked ~ .header__info {
+    .navbar input[type="checkbox"]:checked~.header__info {
         transform: translateX(0);
     }
 
-    .navbar input[type="checkbox"]:checked ~ .hamburger__lines .line1 {
+    .navbar input[type="checkbox"]:checked~.hamburger__lines .line1 {
         transform: rotate(45deg);
     }
 
-    .navbar input[type="checkbox"]:checked ~ .hamburger__lines .line2 {
+    .navbar input[type="checkbox"]:checked~.hamburger__lines .line2 {
         transform: scaleY(0);
     }
 
-    .navbar input[type="checkbox"]:checked ~ .hamburger__lines .line3 {
+    .navbar input[type="checkbox"]:checked~.hamburger__lines .line3 {
         transform: rotate(-45deg);
-    } 
+    }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
-    .navbar{
+    .navbar {
         padding: 0 12rem;
     }
-    .navbar .checkbox, .navbar .hamburger__lines {
+
+    .navbar .checkbox,
+    .navbar .hamburger__lines {
         right: 12rem;
     }
 }
@@ -186,10 +221,11 @@ body::-webkit-scrollbar-track {
 
 /* ------- HOME -------- */
 
-.right__content img{
+.right__content img {
     height: 100%;
     width: 100%;
 }
+
 .home__page {
     height: 100vh;
     width: 100%;
@@ -203,6 +239,7 @@ body::-webkit-scrollbar-track {
     height: auto;
     background-color: var(--secondary-bg-color);
 }
+
 .triangle:after {
     content: "";
     position: absolute;
@@ -214,6 +251,7 @@ body::-webkit-scrollbar-track {
 .message__text {
     padding: 1rem;
 }
+
 .home__buttons button {
     padding: 1rem 2rem;
     color: var(--font-color);
@@ -225,6 +263,7 @@ body::-webkit-scrollbar-track {
     color: #fff;
     padding: 1rem 1.5rem;
 }
+
 .home__buttons button {
     background-color: transparent;
     border: 1px solid #fff;
@@ -239,12 +278,14 @@ body::-webkit-scrollbar-track {
     .message__bubble {
         width: 160px;
     }
+
     .home__buttons a {
         padding: 1rem 1rem !important;
     }
 }
+
 @media screen and (max-width: 1200px) {
-    .home__page{
+    .home__page {
         padding-top: 10rem;
     }
 }
@@ -271,18 +312,22 @@ body::-webkit-scrollbar-track {
     height: 100%;
     position: absolute;
 }
+
 .progress__wordpress span {
     background-color: #ff4900;
     width: 100%;
 }
+
 .progress__html span {
     background-color: #ff7004;
     width: 75%;
 }
+
 .progress__angular span {
     background-color: #ff9809;
     width: 80%;
 }
+
 .progress__reactJs span {
     background-color: #ff9809;
     width: 95%;
@@ -292,7 +337,7 @@ body::-webkit-scrollbar-track {
 
 .freelancer {
     height: 50vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)) ,url(./assets/freelancer2.webp);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url(./assets/freelancer2.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -302,10 +347,12 @@ body::-webkit-scrollbar-track {
 .services {
     padding-top: 81px;
 }
+
 .card {
     background-color: #111111;
     transition: all 0.2s ease-in;
 }
+
 .service__logo {
     height: 60px;
     width: 60px;
@@ -322,9 +369,11 @@ body::-webkit-scrollbar-track {
 .card:hover {
     background-color: var(--secondary-bg-color);
 }
+
 .card:hover .service__logo {
     background-color: #fff;
 }
+
 .card:hover .service__logo i {
     color: #000;
 }
@@ -336,6 +385,7 @@ body::-webkit-scrollbar-track {
     font-size: small;
     cursor: pointer;
 }
+
 .gallery__categories .filter-item.active {
     border-bottom: 1px solid var(--secondary-bg-color);
 }
@@ -346,6 +396,7 @@ body::-webkit-scrollbar-track {
     display: block;
     position: relative;
 }
+
 .project__card img {
     width: 100%;
     height: 100%;
@@ -406,13 +457,16 @@ body::-webkit-scrollbar-track {
 .project__card.hide {
     display: none;
 }
+
 .project__card.show {
     animation: fadeIn 0.5s ease;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -441,6 +495,7 @@ footer {
 .social__mediaIcons .fa-brands:hover {
     color: var(--secondary-bg-color);
 }
+
 .contact a {
     padding: 0.5rem 1.8rem;
     background-color: unset;
@@ -448,4 +503,11 @@ footer {
     font-family: var(--font);
     font-size: 0.9rem;
     color: #a3a3a3;
+}
+
+.cursor {
+    display: inline-block;
+    margin-left: 2px;
+    vertical-align: middle;
+    opacity: 1;
 }
