@@ -224,6 +224,15 @@ body::-webkit-scrollbar-track {
 .right__content img {
     height: 100%;
     width: 100%;
+    margin-top: 100px;
+}
+
+@media screen and (max-width: 576px) {
+    .right__content img{
+        height: 100%;
+        width: 100%;
+        margin-top: 50px;
+    }
 }
 
 .home__page {

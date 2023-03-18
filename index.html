@@ -14,6 +14,7 @@
             href="https://unpkg.com/primeflex@^3/primeflex.css">
         <link rel="stylesheet"
             href="https://unpkg.com/primeflex/themes/saga-blue.css">
+        
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
         <script src="https://kit.fontawesome.com/b3f17f1dac.js"
@@ -29,8 +30,8 @@
             <nav class="flex justify-content-between w-full navbar">
                 <span class="logo cursor-pointer"
                     onclick="scrollToSection('home')">
-                    <img src="./assets/Logo.png" alt="Logo portafolio"
-                        width="50" height="50">
+                    <img src="./assets/logoJlmz.png" alt="Logo portafolio"
+                        width="40" height="40" class="ml-6">
                 </span>
                 <input type="checkbox" aria-label="Checkbox para mostrar y
                     quitar hamburger menu"
@@ -67,17 +68,21 @@
                 <div class="left__content col-12 xl:col-6">
                     <div class="message__bubble triangle mb-4 md:mb-2">
                         <div class="message__text p-2 sm:p-3 text-center">
-                            <p>Hola, Yo soy</p>
+                            <p>Hi there! I am</p>
                         </div>
                     </div>
-                    <h1 class="text-3xl sm:text-5xl md:text-7xl">Mr. John Walker</h1>
-                    <p id="my-text"></p><span class="cursor">_</span>
-                    <p class="text-gray-500" id="professionId">
-                        Profesional en desarrollo web y diseñador UI/UX
+                    <div class="d-flex flex-row">
+                        <h1 class="text-3xl sm:text-5xl md:text-7xl">Jose Muñoz</h1>
+                        <h1 class="text-3xl sm:text-5xl md:text-4xl"><span style="color:#37a7cf" id="my-text"></span><span style="color:#37a7cf" class="cursor">_</span> Developer</h1>
+                        <p ></p>
+                    </div>
+
+                    <p class="text-gray-500 font-light mt-4">
+                        Welcome to my portfolio!
                     </p>
                     <div class="home__buttons flex align-items-center gap-2
-                        mt-6">
-                        <a href="./assets/CURRICULUM.pdf" aria-label="Descargar
+                        mt-5">
+                        <a href="./assets/cvjmunoz.pdf" aria-label="Descargar
                             curriculum"
                             class="cursor-pointer border-round-lg no-underline"
                             download>Descargar CV</a>
@@ -88,7 +93,7 @@
                     </div>
                 </div>
                 <div class="right__content col-9 sm:col-6 xl:col-5">
-                    <img src="./assets/foto-perfil.png" alt="Foto perfil"
+                    <img src="./assets/profilePhoto.png" alt="Foto perfil"
                         width="100" height="100">
                 </div>
             </section>
@@ -444,7 +449,7 @@
         const tl = gsap.timeline({ repeat: -1 });
         
         // define the animation for each word
-        ["Frontend", "Backend"].forEach(word => {
+        ["Frontend", "Backend", "IoT"].forEach(word => {
             const subTl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 });
             subTl.to("#my-text", { duration: 1, text: word });
             tl.add(subTl);
