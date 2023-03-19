@@ -5,15 +5,16 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="Description" content="Fullstack and IoT developer portfolio" />
-        <title>Portafolio</title>
+        <meta name="Description" content="Fullstack and IoT developer portfolio"
+            />
+        <title>Jose Munoz | Software Engineer</title>
         <link rel="stylesheet" href="style.css" />
 
         <link rel="stylesheet"
             href="https://unpkg.com/primeflex@^3/primeflex.css">
         <link rel="stylesheet"
             href="https://unpkg.com/primeflex/themes/saga-blue.css">
-        
+
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
         <script src="https://kit.fontawesome.com/b3f17f1dac.js"
@@ -47,12 +48,6 @@
                         <li onclick="scrollToSection('portfolio')">Portafolio</li>
                         <li onclick="scrollToSection('contact')">Contacto</li>
                     </ul>
-                    <div class="hireMe__button pt-4">
-                        <a href="mailTo:john@email.com" aria-label="Enviar
-                            mensaje al correo"
-                            class="cursor-pointer no-underline border-round-lg
-                            text-xl xl:text-sm">Contratame</a>
-                    </div>
                 </div>
             </nav>
         </header>
@@ -72,8 +67,11 @@
                     </div>
                     <div class="d-flex flex-row">
                         <h1 class="text-3xl sm:text-5xl md:text-7xl">Jose Muñoz</h1>
-                        <h1 class="text-3xl sm:text-5xl md:text-4xl"><span style="color:#37a7cf" id="my-text"></span><span style="color:#37a7cf" class="cursor">_</span> Developer</h1>
-                        <p ></p>
+                        <h1 class="text-3xl sm:text-5xl md:text-4xl"><span
+                                style="color:#37a7cf" id="my-text"></span><span
+                                style="color:#37a7cf" class="cursor">_</span>
+                            Developer</h1>
+                        <p></p>
                     </div>
 
                     <p class="text-gray-500 font-light mt-4">
@@ -97,18 +95,74 @@
                 </div>
             </section>
             <!--ABOUT ME-->
-            <section id="about" class="about__me w-full min-h-screen flex
-                align-items-center">
+            <section id="about" class="about__me w-full flex
+                align-items-center my-8">
                 <div class="aboutMe__content min-h-full flex flex-column
-                    md:flex-row pt-8 md:pt-0">
+                    md:flex-row pt-8 my-8 md:pt-0">
                     <div class="aboutMe__info col-12 md:col-6 md:pr-6 pt-0">
                         <h1 class="text-3xl md:text-5xl">Sobre mí</h1>
-                        <p class="text-gray-500">Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit.
-                            em magni harum sit eum aperiam repellat, incidunt
-                            provident dolor laborum animi
-                            nam eaque nobis illo est. Qui culpa itaque enim
-                            aspernatur?</p>
+                        <p class="text-gray-500 my-2 text-justify">Soy un
+                            profesional apasionado por la tecnología y el
+                            desarrollo de software.
+                            A lo largo de mi experiencia, como desarrollador
+                            frontend, he creado interfaces atractivas y
+                            funcionales. Asimismo, como desarrollador backend,
+                            he interpretado lógicas de negocio de diversos
+                            proyectos y trabajar con bases de datos y
+                            servidores. Soy un profesional capacitado
+                            para trabajar en proyectos complejos y
+                            multifacéticos.
+                        </p>
+                        <div class="knowledge flex flex-column gap-3 mt-5">
+                            <p>HTML 85%</p>
+                            <div class="progress__bar progress__html">
+                                <span></span>
+                            </div>
+                            <p>Javascript 85%</p>
+                            <div class="progress__bar progress__javascript">
+                                <span></span>
+                            </div>
+                            <p>NodeJS 75%</p>
+                            <div class="progress__bar progress__node">
+                                <span></span>
+                            </div>
+                            <p>React Js 75%</p>
+                            <div class="progress__bar progress__reactJs">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image col p-0 mt-6 md:mt-0 heartbeat">
+                        <img src="./assets/freelancer.jpg" alt="Foto relacionado
+                            a acerca de mí" width="100" height="100">
+                    </div>
+                </div>
+            </section>
+
+            <!--ABOUT ME-->
+            <section id="about2" class="about__me w-full flex
+                align-items-center my-8">
+                <div class="aboutMe__content flex flex-column
+                    md:flex-row pt-8 my-8 md:pt-0">
+
+                    <div class="image col p-0 mt-6 md:mt-0 heartbeat-2">
+                        <img src="./assets/freelancer.jpg" alt="Foto relacionado
+                            a acerca de mí" width="100" height="100">
+                    </div>
+
+                    <div class="aboutMe__info col-12 md:col-6 md:pl-8 pt-0">
+                        <h1 class="text-3xl md:text-5xl">Software + Hardware</h1>
+                        <p class="text-gray-500 my-2 text-justify">En el área de
+                            IoT, mis estudios universitarios en conjunto con mis
+                            competencioas como investigador me han permitido
+                            trabajar en proyectos que van más allá de la web y
+                            se integran con
+                            dispositivos físicos, sensores y otras tecnologías
+                            de vanguardia. Desde la creación de aplicaciones de
+                            control de dispositivos inteligentes hasta la
+                            integración de sensores y otros dispositivos IoT en
+                            sistemas más grandes, estoy equipado para manejar
+                            proyectos desafiantes y emocionantes.</p>
                         <div class="knowledge flex flex-column gap-3 mt-5">
                             <p>Wordpress 100%</p>
                             <div class="progress__bar progress__wordpress">
@@ -135,12 +189,9 @@
                         </div>
 
                     </div>
-                    <div class="image col p-0 mt-6 md:mt-0">
-                        <img src="./assets/freelancer.jpg" alt="Foto relacionado
-                            a acerca de mí" width="100" height="100">
-                    </div>
                 </div>
             </section>
+
         </div>
         <!--FREE LANCER SECTION -->
         <section class="freelancer mb-4 mt-4 min-w-full flex flex-column

@@ -23,6 +23,18 @@
     }
 }
 
+.heartbeat-2 {
+    animation: heartbeat-2 1s infinite alternate;
+}
+
+@keyframes heartbeat-2 {
+    to {
+        -webkit-transform: scale(0.9);
+        transform: scale(1.1);
+        text-transform: scale(1.1);
+    }
+}
+
 /* --------GENERAL STYLES -------- */
 * {
     margin: 0;
@@ -322,24 +334,24 @@ body::-webkit-scrollbar-track {
     position: absolute;
 }
 
-.progress__wordpress span {
-    background-color: #ff4900;
-    width: 100%;
+.progress__html span {
+    background-color: #37a7cf;
+    width: 85%;
 }
 
-.progress__html span {
-    background-color: #ff7004;
+.progress__javascript span {
+    background-color: #37a7cf;
+    width: 85%;
+}
+
+.progress__node span {
+    background-color: #37a7cf;
     width: 75%;
 }
 
-.progress__angular span {
-    background-color: #ff9809;
-    width: 80%;
-}
-
 .progress__reactJs span {
-    background-color: #ff9809;
-    width: 95%;
+    background-color: #37a7cf;
+    width: 75%;
 }
 
 /* ------- FREE LANCER -------- */
