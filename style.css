@@ -354,6 +354,21 @@ body::-webkit-scrollbar-track {
     width: 75%;
 }
 
+.progress__architecture span {
+    background-color: #37a7cf;
+    width: 75%;
+}
+
+.progress__embedded_systems span {
+    background-color: #37a7cf;
+    width: 75%;
+}
+
+.progress__mic_programming span {
+    background-color: #37a7cf;
+    width: 80%;
+}
+
 /* ------- FREE LANCER -------- */
 
 .freelancer {
