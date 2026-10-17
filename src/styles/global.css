@@ -1,0 +1,143 @@
+@import "tailwindcss";
+@import "@fontsource-variable/instrument-sans/wdth.css";
+@import "@fontsource-variable/spline-sans-mono";
+
+/* ---------------------------------------------------------------------------
+   Versión 2: la terminal de pago.
+   Un campo de azul ultramar (el color de la tinta de los vouchers y de las
+   firmas), papel térmico para el voucher, y el verde de "aprobado" reservado
+   para lo que de verdad está en producción.
+--------------------------------------------------------------------------- */
+:root {
+  color-scheme: light dark;
+
+  --bg: #f2f4f8;
+  --surface: #ffffff;
+  --ink: #0e1630;
+  --muted: #4d5874;
+  --line: #d5dbe7;
+  --ultra: #2433b8;
+  --ultra-deep: #151f78;
+  --on-ultra: #f4f6ff;
+  --on-ultra-muted: #b9c1f2;
+  --thermal: #fbfaf5;
+  --thermal-ink: #23242a;
+  --approved: #0b7a52;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1022;
+    --surface: #131a33;
+    --ink: #e8ebf5;
+    --muted: #a0a9c4;
+    --line: #26304f;
+    --ultra: #7d8cff;
+    --ultra-deep: #161f5e;
+    --on-ultra: #eef0ff;
+    --on-ultra-muted: #aeb6ee;
+    --thermal: #f3f1ea;
+    --thermal-ink: #23242a;
+    --approved: #3fcf95;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-ultra: var(--ultra);
+  --color-ultra-deep: var(--ultra-deep);
+  --color-on-ultra: var(--on-ultra);
+  --color-on-ultra-muted: var(--on-ultra-muted);
+  --color-thermal: var(--thermal);
+  --color-thermal-ink: var(--thermal-ink);
+  --color-approved: var(--approved);
+
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-receipt: "Spline Sans Mono Variable", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ultra);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .on-ultra :focus-visible {
+    outline-color: var(--on-ultra);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Titulares en el eje angosto de Instrument Sans: compactos, sin gritar. */
+  .headline {
+    font-stretch: 78%;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    padding: 0.2rem 0.7rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    padding: 0.7rem 1.15rem;
+    font-size: 0.9375rem;
+    font-weight: 550;
+    line-height: 1.2;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .link {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  }
+
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+}

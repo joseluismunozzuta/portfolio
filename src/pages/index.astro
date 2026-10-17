@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import Projects from "../components/Projects.astro";
+import Skills from "../components/Skills.astro";
+import Experience from "../components/Experience.astro";
+import Contact from "../components/Contact.astro";
+import { profile } from "../data/profile";
+---
+
+<Layout
+  title={`${profile.name}, ${profile.role.toLowerCase()}`}
+  description="Ingeniero de software en medios de pago: autorización, clearing y liquidación en la plataforma de Culqi. Además construyo productos completos, como Hostito, un sistema hotelero con facturación SUNAT en producción en hostales de Lima."
+>
+  <SiteNav />
+  <main>
+    <Hero />
+    <Projects />
+    <Skills />
+    <Experience />
+  </main>
+  <Contact />
+</Layout>

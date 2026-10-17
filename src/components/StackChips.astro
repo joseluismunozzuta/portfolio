@@ -1,0 +1,27 @@
+---
+import { groupByCategory } from "../lib/tech";
+
+interface Props {
+  stack: string[];
+  source: string;
+}
+const { stack, source } = Astro.props;
+const groups = groupByCategory(stack, source);
+---
+
+<dl class="space-y-3">
+  {
+    groups.map((group) => (
+      <div>
+        <dt class="text-[0.8125rem] text-muted">{group.category}</dt>
+        <dd class="mt-1.5 flex flex-wrap gap-1.5">
+          {group.items.map((name) => (
+            <span class="chip" data-tech={name}>
+              {name}
+            </span>
+          ))}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

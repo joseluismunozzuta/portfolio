@@ -1,0 +1,29 @@
+---
+import Receipt from "./Receipt.astro";
+import { profile } from "../data/profile";
+---
+
+<section id="inicio" class="on-ultra bg-ultra text-on-ultra dark:bg-ultra-deep">
+  <div
+    class="mx-auto grid max-w-6xl items-start gap-12 px-5 pt-14 pb-16 sm:px-8 md:grid-cols-[minmax(0,1fr)_21rem] md:pt-24 md:pb-24 lg:gap-20"
+  >
+    <div>
+      <p class="text-on-ultra-muted">{profile.role} en {profile.location}</p>
+      <h1 class="headline mt-4 text-[clamp(3rem,9vw,6.75rem)]">
+        Jose Luis<br />Muñoz Zuta
+      </h1>
+      <p class="mt-7 max-w-[54ch] text-lg leading-relaxed text-on-ultra-muted">
+        {profile.intro}
+      </p>
+
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="#proyectos" class="btn bg-on-ultra text-ultra-deep hover:bg-white">Ver proyectos</a>
+        <a href="#contacto" class="btn border border-on-ultra/40 hover:border-on-ultra hover:bg-on-ultra/10">
+          Escríbeme
+        </a>
+      </div>
+    </div>
+
+    <Receipt />
+  </div>
+</section>

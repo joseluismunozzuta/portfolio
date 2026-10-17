@@ -1,0 +1,185 @@
+---
+/**
+ * El voucher: una respuesta de autorización (MTI 0110) impresa en papel
+ * térmico. Es el único elemento llamativo del sitio y el único movimiento
+ * que nadie pidió: se imprime una vez al cargar.
+ */
+import { profile } from "../data/profile";
+
+const rows: { label: string; value: string }[] = [
+  { label: "Comercio", value: "LIMA, PE" },
+  { label: "Experiencia", value: "6+ AÑOS" },
+  { label: "Txn por ciclo", value: "≈ 2 000 000" },
+  { label: "Batch clearing", value: "25 → 10 MIN" },
+  { label: "Hostales con Hostito", value: "5" },
+  { label: "Cert. Salesforce", value: "3" },
+  { label: "Idiomas", value: "ES EN FR PT" },
+];
+---
+
+<div class="receipt-slot" aria-label="Resumen de mi perfil en forma de voucher">
+  <div class="receipt">
+    <p class="text-center text-[0.8125rem] font-semibold tracking-wide">RESPUESTA DE AUTORIZACIÓN</p>
+    <p class="mt-0.5 text-center text-[0.75rem]">MTI 0110 · TERMINAL JLMZ</p>
+
+    <div class="mt-4 flex items-center gap-3.5">
+      <img
+        src="/jose-voucher.jpg"
+        alt={`Foto de ${profile.name}`}
+        width="240"
+        height="300"
+        class="holder-photo"
+      />
+      <div class="min-w-0">
+        <p class="text-[0.75rem]">TITULAR</p>
+        <p class="font-semibold leading-snug">JOSE LUIS<br />MUÑOZ ZUTA</p>
+        <p class="mt-1 text-[0.75rem] leading-snug">{profile.role.toUpperCase()}</p>
+      </div>
+    </div>
+
+    <dl class="mt-4 space-y-1 border-y border-dashed border-thermal-ink/40 py-3">
+      {
+        rows.map((row) => (
+          <div class="flex items-baseline gap-2">
+            <dt class="shrink-0">{row.label}</dt>
+            <span class="dots" aria-hidden="true" />
+            <dd class="shrink-0 text-right font-medium">{row.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-4 flex items-center justify-between gap-3">
+      <div>
+        <p class="text-[0.75rem]">CÓD. RESPUESTA</p>
+        <p class="text-3xl leading-none font-semibold">00</p>
+      </div>
+      <p class="stamp">APROBADO</p>
+    </div>
+
+    <div class="mt-5 grid grid-cols-2 gap-2 font-sans">
+      <a href={profile.cv.es} download class="receipt-btn">CV español</a>
+      <a href={profile.cv.en} download class="receipt-btn">CV English</a>
+    </div>
+
+    <p class="mt-4 text-center text-[0.75rem]">GRACIAS POR SU VISITA</p>
+  </div>
+</div>
+
+<style>
+  .receipt-slot {
+    position: relative;
+    padding-top: 0.6rem;
+  }
+
+  /* La ranura de la impresora. */
+  .receipt-slot::before {
+    content: "";
+    position: absolute;
+    inset: 0 -0.75rem auto;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, black 45%, var(--ultra-deep));
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.5);
+    z-index: 2;
+  }
+
+  .receipt {
+    position: relative;
+    background: var(--thermal);
+    color: var(--thermal-ink);
+    font-family: var(--font-receipt);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    padding: 1.4rem 1.25rem 2rem;
+    /* Borde inferior rasgado. */
+    --tear: 0.55rem;
+    mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--tear)) no-repeat,
+      conic-gradient(from 135deg at top, #000 90deg, #0000 0) bottom / calc(var(--tear) * 2) var(--tear) repeat-x;
+    animation: print 1.6s cubic-bezier(0.3, 0.7, 0.2, 1) 0.3s backwards;
+  }
+
+  /* La foto del titular, como en un carné: borde fino y esquinas apenas redondeadas. */
+  .holder-photo {
+    width: 5rem;
+    aspect-ratio: 4 / 5;
+    flex-shrink: 0;
+    border: 1px solid color-mix(in srgb, var(--thermal-ink) 35%, transparent);
+    border-radius: 4px;
+    object-fit: cover;
+    padding: 2px;
+    background: var(--thermal);
+  }
+
+  .dots {
+    flex: 1 1 auto;
+    min-width: 0.75rem;
+    border-bottom: 1px dotted color-mix(in srgb, var(--thermal-ink) 45%, transparent);
+    translate: 0 -0.3em;
+  }
+
+  .stamp {
+    border: 2px solid var(--approved);
+    border-radius: 6px;
+    color: var(--approved);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.7rem;
+    rotate: -6deg;
+    animation: stamp 260ms ease-out 1.75s backwards;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .stamp {
+      color: #0b7a52;
+      border-color: #0b7a52;
+    }
+  }
+
+  .receipt-btn {
+    display: flex;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--thermal-ink) 55%, transparent);
+    border-radius: 6px;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 550;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .receipt-btn:hover {
+    background: var(--thermal-ink);
+    color: var(--thermal);
+  }
+
+  @keyframes print {
+    from {
+      clip-path: inset(0 0 100% 0);
+      translate: 0 -2.5rem;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      translate: 0 0;
+    }
+  }
+
+  @keyframes stamp {
+    from {
+      opacity: 0;
+      scale: 1.6;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .receipt,
+    .stamp {
+      animation: none;
+    }
+  }
+</style>

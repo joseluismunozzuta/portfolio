@@ -1,0 +1,266 @@
+---
+import { skillCount, skillIndex } from "../lib/tech";
+import { featuredStack, logos } from "../data/logos";
+
+/**
+ * Explorador de skills. Cada tecnología es un botón: al elegirla, el panel
+ * dice dónde la usé y los proyectos que no la usan se apagan. Sin JavaScript
+ * se ve igual, con la primera tecnología ya elegida.
+ */
+const all = skillIndex.flatMap((s) => s.rows);
+const initial = all.find((r) => r.name === "Java") ?? all[0]!;
+const data = Object.fromEntries(all.map((r) => [r.name, r.usages]));
+const featured = featuredStack.map((name) => {
+  const row = all.find((r) => r.name === name);
+  if (!row || !logos[name]) throw new Error(`"${name}" está en featuredStack pero no se usa en ningún lado o no tiene logo`);
+  return { ...row, logo: logos[name]! };
+});
+---
+
+<section id="skills" class="scroll-mt-16 border-y border-line bg-surface">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
+    <h2 class="headline text-[clamp(2.25rem,5vw,3.5rem)]">Dónde uso cada tecnología</h2>
+    <p class="mt-4 max-w-[62ch] text-lg text-muted">
+      {skillCount} tecnologías, cada una ligada al proyecto o trabajo donde la apliqué. Elige una para ver dónde
+      está.
+    </p>
+
+    <ul class="mt-12 grid grid-cols-3 gap-2.5 sm:grid-cols-6 sm:gap-3" aria-label="Mi stack principal">
+      {
+        featured.map((row) => (
+          <li>
+            <button
+              type="button"
+              class="skill tile"
+              data-skill={row.name}
+              aria-pressed={row.name === initial.name ? "true" : "false"}
+              aria-controls="skill-panel"
+            >
+              <span class="tile-logo">
+                <img src={row.logo} alt="" width="44" height="44" loading="lazy" />
+              </span>
+              <span class="tile-name">{row.name}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
+      <div class="space-y-8">
+        {
+          skillIndex.map((section) => (
+            <div>
+              <h3 class="text-sm font-semibold">{section.category}</h3>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {section.rows.map((row) => (
+                  <li>
+                    <button
+                      type="button"
+                      class="skill chip cursor-pointer hover:border-ultra"
+                      data-skill={row.name}
+                      aria-pressed={row.name === initial.name ? "true" : "false"}
+                      aria-controls="skill-panel"
+                    >
+                      {logos[row.name] && (
+                        <span class="chip-logo" aria-hidden="true">
+                          <img src={logos[row.name]} alt="" width="14" height="14" loading="lazy" />
+                        </span>
+                      )}
+                      {row.name}
+                      <span class="count" aria-label={`usada en ${row.usages.length}`}>
+                        {row.usages.length}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <aside
+        id="skill-panel"
+        aria-live="polite"
+        class="self-start rounded-2xl bg-ultra p-6 text-on-ultra lg:sticky lg:top-24 dark:bg-ultra-deep"
+      >
+        <p class="text-sm text-on-ultra-muted">Usada en</p>
+        <p class="headline mt-1 text-3xl" data-panel-name>{initial.name}</p>
+        <ul class="mt-5 space-y-2" data-panel-list>
+          {
+            initial.usages.map((u) => (
+              <li>
+                <a class="link" href={u.href}>
+                  {u.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-on-ultra-muted" data-panel-actions>
+          <a href="#proyectos" class="link">Verlos resaltados en Proyectos</a>
+          <button type="button" class="link cursor-pointer" data-panel-clear>Quitar filtro</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="skill-data" set:html={JSON.stringify(data)} />
+
+<script>
+  type Usage = { label: string; href: string };
+  const data: Record<string, Usage[]> = JSON.parse(document.getElementById("skill-data")!.textContent!);
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>("button[data-skill]")];
+  const name = document.querySelector<HTMLElement>("[data-panel-name]")!;
+  const list = document.querySelector<HTMLElement>("[data-panel-list]")!;
+  const clear = document.querySelector<HTMLButtonElement>("[data-panel-clear]")!;
+  const actions = document.querySelector<HTMLElement>("[data-panel-actions]")!;
+
+  function select(skill: string | null) {
+    for (const b of buttons) b.setAttribute("aria-pressed", String(b.dataset.skill === skill));
+    document.querySelectorAll<HTMLElement>("[data-project]").forEach((p) => {
+      const match = skill !== null && p.dataset.stack!.split("|").includes(skill);
+      p.toggleAttribute("data-match", match);
+    });
+    document.querySelectorAll<HTMLElement>(".chip[data-tech]").forEach((c) => {
+      c.toggleAttribute("data-active", c.dataset.tech === skill);
+    });
+    if (skill === null) {
+      document.body.removeAttribute("data-filter");
+      actions.hidden = true;
+      return;
+    }
+    document.body.setAttribute("data-filter", skill);
+    actions.hidden = false;
+    name.textContent = skill;
+    list.replaceChildren(
+      ...data[skill]!.map((u) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.className = "link";
+        a.href = u.href;
+        a.textContent = u.label;
+        li.append(a);
+        return li;
+      }),
+    );
+  }
+
+  const panel = document.getElementById("skill-panel")!;
+  for (const b of buttons)
+    b.addEventListener("click", () => {
+      select(b.dataset.skill!);
+      // En pantallas angostas el panel queda lejos del muro de logos: lo traemos a la vista.
+      if (b.classList.contains("tile") && !matchMedia("(min-width: 1024px)").matches) {
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        panel.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+      }
+    });
+  clear.addEventListener("click", () => select(null));
+  // Al cargar no se apaga nada: el filtro solo actúa cuando el visitante elige.
+  actions.hidden = true;
+</script>
+
+<style>
+  .tile {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--bg);
+    padding: 1.25rem 0.5rem 0.9rem;
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      translate 150ms ease;
+  }
+
+  .tile:hover {
+    border-color: var(--ultra);
+    translate: 0 -2px;
+    box-shadow: 0 12px 24px -16px rgb(14 22 48 / 0.45);
+  }
+
+  /* El logo va sobre una placa clara para que se lea igual en modo oscuro. */
+  .tile-logo {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.9rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgb(14 22 48 / 0.12);
+  }
+
+  .tile-logo img {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .tile-name {
+    font-size: 0.8125rem;
+    font-weight: 550;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .tile[aria-pressed="true"] {
+    border-color: var(--ultra);
+    background: var(--ultra);
+    color: var(--on-ultra);
+  }
+
+  .chip:has(.chip-logo) {
+    padding-left: 0.3rem;
+  }
+
+  .chip-logo {
+    display: inline-grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.3rem;
+    background: #fff;
+  }
+
+  .chip-logo img {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .skill .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 0.6875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .skill[aria-pressed="true"] {
+    border-color: var(--ultra);
+    background: var(--ultra);
+    color: var(--on-ultra);
+  }
+
+  .skill[aria-pressed="true"] .count {
+    background: color-mix(in srgb, var(--on-ultra) 22%, transparent);
+    color: var(--on-ultra);
+  }
+
+  /* En modo oscuro el ultramar es claro: el elegido va en ultramar profundo para que el texto se lea. */
+  @media (prefers-color-scheme: dark) {
+    .skill[aria-pressed="true"] {
+      background: var(--ultra-deep);
+    }
+  }
+</style>

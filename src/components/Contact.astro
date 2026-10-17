@@ -1,0 +1,62 @@
+---
+import { profile } from "../data/profile";
+
+const channels = [
+  { label: "Correo", value: profile.email, href: `mailto:${profile.email}` },
+  { label: "LinkedIn", value: "linkedin.com/in/jlmz", href: profile.linkedin },
+  { label: "GitHub", value: "github.com/joseluismunozzuta", href: profile.github },
+];
+---
+
+<footer id="contacto" class="on-ultra scroll-mt-16 bg-ultra-deep text-on-ultra">
+  <div class="mx-auto grid max-w-6xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-[minmax(0,1fr)_16rem] md:py-28">
+    <div>
+      <h2 class="headline text-[clamp(2.25rem,5vw,3.5rem)]">Conversemos</h2>
+      <p class="mt-4 max-w-[52ch] text-lg text-on-ultra-muted">
+        Si quieres hablar de medios de pago, de un producto que necesitas construir o de una vacante, escríbeme.
+      </p>
+
+      <ul class="mt-10 divide-y divide-on-ultra/15 border-y border-on-ultra/15">
+        {
+          channels.map((c) => (
+            <li>
+              <a
+                href={c.href}
+                target={c.href.startsWith("http") ? "_blank" : undefined}
+                rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-4 transition-colors hover:text-white"
+              >
+                <span class="text-sm text-on-ultra-muted">{c.label}</span>
+                <span class="text-lg font-medium break-all">{c.value}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={profile.cv.es} download class="btn bg-on-ultra text-ultra-deep hover:bg-white">
+          Descargar CV en español
+        </a>
+        <a href={profile.cv.en} download class="btn border border-on-ultra/40 hover:border-on-ultra hover:bg-on-ultra/10">
+          Download CV in English
+        </a>
+      </div>
+    </div>
+
+    <img
+      src={profile.photo}
+      alt={`Retrato de ${profile.name}`}
+      width="640"
+      height="800"
+      loading="lazy"
+      class="order-first aspect-[4/5] w-48 rounded-2xl object-cover md:order-none md:w-full"
+    />
+  </div>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <div class="flex flex-wrap justify-between gap-2 border-t border-on-ultra/15 py-6 text-sm text-on-ultra-muted">
+      <p>© {new Date().getFullYear()} {profile.name}</p>
+      <p>Hecho con Astro y Tailwind CSS</p>
+    </div>
+  </div>
+</footer>

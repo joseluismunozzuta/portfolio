@@ -1,0 +1,27 @@
+---
+import { profile } from "../data/profile";
+
+const links = [
+  { href: "#proyectos", label: "Proyectos" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header class="on-ultra sticky top-0 z-40 bg-ultra-deep text-on-ultra">
+  <nav aria-label="Secciones" class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
+    <a href="#inicio" class="hidden text-sm font-semibold sm:block">{profile.name}</a>
+    <ul class="flex items-center gap-4 text-sm sm:gap-7">
+      {
+        links.map((link) => (
+          <li>
+            <a href={link.href} class="text-on-ultra-muted transition-colors hover:text-on-ultra">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

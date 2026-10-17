@@ -1,0 +1,103 @@
+---
+import { certifications, education, jobs, languages } from "../data/experience";
+import { groupByCategory } from "../lib/tech";
+
+const records = jobs.map((job) => ({
+  job,
+  stack: groupByCategory(job.stack, `experience.ts → ${job.company}`).flatMap((g) => g.items),
+}));
+---
+
+<section id="experiencia" class="mx-auto max-w-6xl scroll-mt-16 px-5 py-20 sm:px-8 md:py-28">
+  <h2 class="headline text-[clamp(2.25rem,5vw,3.5rem)]">Experiencia</h2>
+
+  <ol class="relative mt-12 space-y-12 border-l-2 border-line pl-6 sm:pl-10">
+    {
+      records.map(({ job, stack }, i) => (
+        <li class="relative">
+          <span
+            class={`absolute top-2 -left-[calc(1.5rem+7px)] size-3 rounded-full ring-4 ring-bg sm:-left-[calc(2.5rem+7px)] ${i === 0 ? "bg-ultra" : "bg-line"}`}
+            aria-hidden="true"
+          />
+          <div class="grid gap-x-12 gap-y-3 lg:grid-cols-[15rem_minmax(0,1fr)]">
+            <div>
+              <p class="text-sm text-muted">{job.period}</p>
+              <h3 class="headline mt-1 text-[1.75rem]">{job.company}</h3>
+              {job.context && <p class="text-sm text-muted">{job.context}</p>}
+            </div>
+            <div>
+              <ul class="space-y-1">
+                {job.roles.map((role) => (
+                  <li class="flex flex-wrap items-baseline justify-between gap-x-4">
+                    <span class="font-semibold">{role.title}</span>
+                    <span class="text-sm text-muted">{role.period}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul class="mt-4 max-w-[68ch] space-y-2.5 text-[0.9375rem]">
+                {job.points.map((point) => (
+                  <li class="flex gap-3">
+                    <span class="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-ultra" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              {stack.length > 0 && (
+                <ul class="mt-4 flex flex-wrap gap-1.5">
+                  {stack.map((t) => (
+                    <li class="chip">{t}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="mt-20 grid gap-6 md:grid-cols-3">
+    <div class="rounded-2xl border border-line bg-surface p-6">
+      <h3 class="font-semibold">Formación</h3>
+      <ul class="mt-4 space-y-4">
+        {
+          education.map((item) => (
+            <li>
+              <p class="font-medium">{item.title}</p>
+              <p class="text-sm text-muted">
+                {item.place}, {item.period}
+              </p>
+              <p class="mt-1 text-sm text-muted">{item.note}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-line bg-surface p-6">
+      <h3 class="font-semibold">Certificaciones</h3>
+      <ul class="mt-4 space-y-2.5">
+        {
+          certifications.map((item) => (
+            <li class="flex justify-between gap-4 text-[0.9375rem]">
+              <span>{item.name}</span>
+              {item.year && <span class="text-muted tabular-nums">{item.year}</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="rounded-2xl border border-line bg-surface p-6">
+      <h3 class="font-semibold">Idiomas</h3>
+      <ul class="mt-4 space-y-2.5">
+        {
+          languages.map((item) => (
+            <li class="flex justify-between gap-4 text-[0.9375rem]">
+              <span>{item.name}</span>
+              <span class="text-muted">{item.level}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
