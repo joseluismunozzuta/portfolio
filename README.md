@@ -10,6 +10,3 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # revisa tipos y genera dist/
 ```
-
-Para quedarte con una sola versión, copia `src/data/` de una a otra: los datos
-son compatibles en ambas.
