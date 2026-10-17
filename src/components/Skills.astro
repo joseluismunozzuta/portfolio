@@ -258,9 +258,7 @@ const featured = featuredStack.map((name) => {
   }
 
   /* En modo oscuro el ultramar es claro: el elegido va en ultramar profundo para que el texto se lea. */
-  @media (prefers-color-scheme: dark) {
-    .skill[aria-pressed="true"] {
-      background: var(--ultra-deep);
-    }
+  :global([data-theme="dark"]) .skill[aria-pressed="true"] {
+    background: var(--ultra-deep);
   }
 </style>

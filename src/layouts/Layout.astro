@@ -13,6 +13,17 @@ const { title, description } = Astro.props;
 <html lang="es">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      // Modo claro u oscuro antes de pintar: lo que eligió el visitante o, si no eligió, lo del sistema.
+      (() => {
+        let saved = null;
+        try {
+          saved = localStorage.getItem("theme");
+        } catch {}
+        const system = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : system;
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -7,9 +7,15 @@ const [featured, ...rest] = projects;
 
 <section id="proyectos" class="mx-auto max-w-6xl scroll-mt-16 px-5 py-20 sm:px-8 md:py-28">
   <h2 class="headline text-[clamp(2.25rem,5vw,3.5rem)]">Lo que he construido</h2>
-  <p class="mt-4 max-w-[60ch] text-lg text-muted">
-    Productos que diseñé y programé de principio a fin. Debajo de cada uno, las tecnologías que usa.
-  </p>
+  <div class="mt-4 flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+    <p class="max-w-[60ch] text-lg text-muted">
+      Productos que diseñé y programé de principio a fin. Abre cada uno para ver sus logros y las tecnologías
+      que usa.
+    </p>
+    <button type="button" class="link cursor-pointer text-sm text-muted hover:text-ink" data-fold-all>
+      Abrir todos
+    </button>
+  </div>
 
   {
     featured && (
@@ -42,36 +48,45 @@ const [featured, ...rest] = projects;
           </div>
         )}
 
-        <div class="grid gap-10 p-6 sm:p-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16">
-          <div>
-            <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-              <span class="inline-flex items-center gap-1.5 font-medium text-approved">
-                <span class="size-2 rounded-full bg-approved" aria-hidden="true" />
-                En producción
-              </span>
-              <span>{featured.kind}, {featured.period}</span>
-            </p>
-            <h3 class="headline mt-3 text-[clamp(2rem,4vw,2.75rem)]">{featured.name}</h3>
-            <p class="mt-3 text-lg">{featured.tagline}</p>
-            {featured.proof && <p class="mt-3 text-muted">{featured.proof}</p>}
+        <div class="p-6 sm:p-10">
+          <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+            <span class="inline-flex items-center gap-1.5 font-medium text-approved">
+              <span class="size-2 rounded-full bg-approved" aria-hidden="true" />
+              En producción
+            </span>
+            <span>{featured.kind}, {featured.period}</span>
+          </p>
+          <h3 class="headline mt-3 text-[clamp(2rem,4vw,2.75rem)]">{featured.name}</h3>
+          <p class="mt-3 max-w-[62ch] text-lg">{featured.tagline}</p>
+          {featured.proof && <p class="mt-3 max-w-[62ch] text-muted">{featured.proof}</p>}
 
-            <ul class="mt-7 space-y-3">
-              {featured.highlights.map((h) => (
-                <li class="flex gap-3">
-                  <span class="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-ultra" aria-hidden="true" />
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <details class="fold mt-7">
+            <summary class="fold-toggle">
+              <span class="when-closed">Ver logros y tecnologías</span>
+              <span class="when-open">Ocultar detalles</span>
+              <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m5 8 5 5 5-5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </summary>
+            <div class="grid gap-10 pt-7 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16">
+              <ul class="space-y-3">
+                {featured.highlights.map((h) => (
+                  <li class="flex gap-3">
+                    <span class="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-ultra" aria-hidden="true" />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
 
-          <StackChips stack={featured.stack} source={`projects.ts → ${featured.slug}`} />
+              <StackChips stack={featured.stack} source={`projects.ts → ${featured.slug}`} />
+            </div>
+          </details>
         </div>
       </article>
     )
   }
 
-  <div class="mt-6 grid gap-6 lg:grid-cols-2">
+  <div class="mt-6 grid gap-6 lg:grid-cols-2 lg:items-start">
     {
       rest.map((project, i) => (
         <article
@@ -111,25 +126,92 @@ const [featured, ...rest] = projects;
           <p class="mt-3">{project.tagline}</p>
           {project.proof && <p class="mt-2 text-sm text-approved">{project.proof}</p>}
 
-          <ul class="mt-5 space-y-2 text-[0.9375rem] text-muted">
-            {project.highlights.map((h) => (
-              <li class="flex gap-3">
-                <span class="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-ultra" aria-hidden="true" />
-                <span>{h}</span>
-              </li>
-            ))}
-          </ul>
+          <details class="fold mt-auto pt-6">
+            <summary class="fold-toggle">
+              <span class="when-closed">Ver logros y tecnologías</span>
+              <span class="when-open">Ocultar detalles</span>
+              <svg class="chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m5 8 5 5 5-5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </summary>
+            <ul class="mt-5 space-y-2 text-[0.9375rem] text-muted">
+              {project.highlights.map((h) => (
+                <li class="flex gap-3">
+                  <span class="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-ultra" aria-hidden="true" />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
 
-          <div class="mt-auto pt-7">
-            <StackChips stack={project.stack} source={`projects.ts → ${project.slug}`} />
-          </div>
+            <div class="pt-7">
+              <StackChips stack={project.stack} source={`projects.ts → ${project.slug}`} />
+            </div>
+          </details>
         </article>
       ))
     }
   </div>
 </section>
 
+<script>
+  const folds = [...document.querySelectorAll<HTMLDetailsElement>("#proyectos details.fold")];
+  const all = document.querySelector<HTMLButtonElement>("[data-fold-all]")!;
+  const sync = () => (all.textContent = folds.every((f) => f.open) ? "Plegar todos" : "Abrir todos");
+  all.addEventListener("click", () => {
+    const open = !folds.every((f) => f.open);
+    for (const f of folds) f.open = open;
+    sync();
+  });
+  for (const f of folds) f.addEventListener("toggle", sync);
+</script>
+
 <style>
+  .fold-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.4rem 0.6rem 0.4rem 0.95rem;
+    font-size: 0.875rem;
+    font-weight: 550;
+    color: var(--ultra);
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .fold-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .fold-toggle:hover {
+    border-color: var(--ultra);
+  }
+
+  .chevron {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: rotate 200ms ease;
+  }
+
+  .fold[open] .chevron {
+    rotate: 180deg;
+  }
+
+  .fold[open] .when-closed,
+  .fold:not([open]) .when-open {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chevron {
+      transition: none;
+    }
+  }
+
   .project {
     transition:
       opacity 200ms ease,

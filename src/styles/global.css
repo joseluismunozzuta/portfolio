@@ -2,6 +2,9 @@
 @import "@fontsource-variable/instrument-sans/wdth.css";
 @import "@fontsource-variable/spline-sans-mono";
 
+/* El modo lo decide data-theme en <html> (lo pone Layout.astro antes de pintar). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ---------------------------------------------------------------------------
    Versión 2: la terminal de pago.
    Un campo de azul ultramar (el color de la tinta de los vouchers y de las
@@ -9,7 +12,7 @@
    para lo que de verdad está en producción.
 --------------------------------------------------------------------------- */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --bg: #f2f4f8;
   --surface: #ffffff;
@@ -25,21 +28,20 @@
   --approved: #0b7a52;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b1022;
-    --surface: #131a33;
-    --ink: #e8ebf5;
-    --muted: #a0a9c4;
-    --line: #26304f;
-    --ultra: #7d8cff;
-    --ultra-deep: #161f5e;
-    --on-ultra: #eef0ff;
-    --on-ultra-muted: #aeb6ee;
-    --thermal: #f3f1ea;
-    --thermal-ink: #23242a;
-    --approved: #3fcf95;
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1022;
+  --surface: #131a33;
+  --ink: #e8ebf5;
+  --muted: #a0a9c4;
+  --line: #26304f;
+  --ultra: #7d8cff;
+  --ultra-deep: #161f5e;
+  --on-ultra: #eef0ff;
+  --on-ultra-muted: #aeb6ee;
+  --thermal: #f3f1ea;
+  --thermal-ink: #23242a;
+  --approved: #3fcf95;
 }
 
 @theme inline {

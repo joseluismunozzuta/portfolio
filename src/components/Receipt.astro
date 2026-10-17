@@ -131,11 +131,9 @@ const rows: { label: string; value: string }[] = [
     animation: stamp 260ms ease-out 1.75s backwards;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .stamp {
-      color: #0b7a52;
-      border-color: #0b7a52;
-    }
+  :global([data-theme="dark"]) .stamp {
+    color: #0b7a52;
+    border-color: #0b7a52;
   }
 
   .receipt-btn {
