@@ -59,6 +59,23 @@ const [featured, ...rest] = projects;
           <h3 class="headline mt-3 text-[clamp(2rem,4vw,2.75rem)]">{featured.name}</h3>
           <p class="mt-3 max-w-[62ch] text-lg">{featured.tagline}</p>
           {featured.proof && <p class="mt-3 max-w-[62ch] text-muted">{featured.proof}</p>}
+          {featured.links && featured.links.length > 0 && (
+            <p class="mt-6 flex flex-wrap gap-3">
+              {featured.links.map((l, i) => (
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener"
+                  class={`btn ${i === 0 ? "bg-ultra text-on-ultra hover:bg-ultra-deep dark:text-ultra-deep dark:hover:bg-on-ultra" : "border border-line hover:border-ultra"}`}
+                >
+                  {l.label}
+                  <svg class="size-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M8 4H4v12h12v-4M11 3h6v6M17 3l-8 8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+              ))}
+            </p>
+          )}
 
           <details class="fold mt-7">
             <summary class="fold-toggle">
@@ -125,6 +142,18 @@ const [featured, ...rest] = projects;
           <h3 class="headline mt-2 text-[1.875rem]">{project.name}</h3>
           <p class="mt-3">{project.tagline}</p>
           {project.proof && <p class="mt-2 text-sm text-approved">{project.proof}</p>}
+          {project.links && project.links.length > 0 && (
+            <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-ultra">
+              {project.links.map((l) => (
+                <a href={l.href} target="_blank" rel="noopener" class="link inline-flex items-center gap-1">
+                  {l.label}
+                  <svg class="size-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M8 4H4v12h12v-4M11 3h6v6M17 3l-8 8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+              ))}
+            </p>
+          )}
 
           <details class="fold mt-auto pt-6">
             <summary class="fold-toggle">

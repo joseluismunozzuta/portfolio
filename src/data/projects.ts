@@ -49,6 +49,7 @@ export const projects: Project[] = [
       "Netlify",
       "Maven",
     ],
+    links: [{ label: "Visitar el sitio de Hostito", href: "https://hostito.netlify.app/" }],
     images: [
       {
         src: "/projects/hostito-recepcion.jpg",
